@@ -23,7 +23,7 @@ public class Final{
   public Boolean Badge=false;
   public Boolean TryEscape=false;
   public GameGUI frame;
-
+  public Scanner s;
 
 
   /**
@@ -108,6 +108,141 @@ public class Final{
     //Final core=new Final();
   }
 
+/**
+  This subroutine is used to return the number of day in game.
+  @return Return the variable int day.
+*/
+  public int getDay(){
+    return this.day;
+  }
+
+/**
+  This subroutine is used to return HP of the player.
+  @return Return health point.
+*/
+  public int getHp(){
+    return this.hp;
+  }
+
+/**
+  This subroutine is used to return number of units of food.
+  @return Return number of units of food.
+*/
+  public int getFood(){
+    return this.food;
+  }
+
+/**
+  This subroutine is used to return whether you have a pistol or not.
+  @return Return whether you have a pistol or not.
+*/
+  public Boolean getPistol(){
+    return this.pistol;
+  }
+
+/**
+  This subroutine is used to return whether you have an AutomaticRifle or not.
+  @return Return whether you have an AutomaticRiflel or not.
+*/
+  public Boolean getAutomaticRifle(){
+    return this.AutomaticRifle;
+  }
+
+/**
+  This subroutine is used to return number of ammo you have.
+  @return Return number of ammo.
+*/
+  public int getAmmo(){
+    return this.ammo;
+  }
+
+/**
+  This subroutine is used to return number of medicine.
+  @return Return number of medicine.
+*/
+  public int getMedicine(){
+    return this.medicine;
+  }
+
+/**
+  This subroutine is used to return number of bandage.
+  @return Return number of bandage.
+*/
+  public int getBandage(){
+    return this.bandage;
+  }
+
+/**
+  This subroutine is used to return number of valuables player has.
+  @return Return number of valuables.
+*/
+  public int getValuables(){
+    return this.valuables;
+  }
+
+/**
+  This subroutine is used to return your moral value.
+  @return Return your moral value.
+*/
+  public int getMoral(){
+    return this.Moral;
+  }
+
+/**
+  This subroutine is used to return whether you are sick or not.
+  @return Return whether you are sick or not.
+*/
+  public Boolean getSick(){
+    return this.sick;
+  }
+
+/**
+  This subroutine is used to return how hungry the player is.
+  @return Return how hungry the player is.
+*/
+  public int getHungry(){
+    return this.hungry;
+  }
+
+/**
+  This subroutine is used to return whether you are in state of fast recover.
+  @return Return whether you are in state of fast recover.
+*/
+  public Boolean getFastRecover(){
+    return this.FastRecover;
+  }
+
+/**
+  This subroutine is used to return whether you are injured.
+  @return Return whether you are injured.
+*/
+  public Boolean getInjured(){
+    return this.injured;
+  }
+
+/**
+  This subroutine is used to return whether you have a spy id.
+  @return Return whether you have a spy id.
+*/
+  public Boolean getSpyID(){
+    return this.spyID;
+  }
+
+/**
+  This subroutine is used to return whether you know rebel's cipher.
+  @return Return the boolean.
+*/
+  public Boolean getCipher(){
+    return this.Cipher;
+  }
+
+/**
+  This subroutine is used to return whether you know rebel's cipher.
+  @return Return the boolean.
+*/
+  public Boolean getB(){
+    return this.Badge;
+  }
   /**
   This subroutine is used for player movement.
   @param M the player's input, if valid it will change current CurrentCoordinate
@@ -1528,26 +1663,26 @@ winout: method to show whether Reznov has escaped
   @return No returns needed
   */
   public  void Introduction(){
+    //Old intro used in CS11a final project,will be abandoned soon.
     System.out.println("Welcome to the game! In this game, you play as a civilian, Dimitri Reznov, who lives inside a city that has been surrounded rebels.");
     this.Delay();
     System.out.println("Your immediate goal is to survive by scavenging. You will have to make tough choices. You may have to steal or even kill someone---You decide.");
     this.Delay();
     System.out.println("Are you ready for the game? Type 'yes' to start, else to quit.");
     this.Delay();
-    //Scanner s = new Scanner(System.in);
+    //s = new Scanner(System.in);
     //String input=s.nextLine();
-    //while(){
-
-    //}
-    String input=frame.inputTF.getText();
+    String input="";
+    while(!frame.enterB){
+      input=frame.inputTF.getText();
+    }
     if((input.toUpperCase()).equals("YES")){
       System.out.println("Good luck, the game starts now.");
       System.out.println("----------------------------------------------------------");
       System.out.println();
     }else{
       System.out.println("See you Later!");
-
-      //System.exit(1);
+      System.exit(1);
     }
     System.out.printf("'In modern war there is nothing sweet nor fitting in your dying. You will die like a dog for no good reason.'%n                                                                                                 ------------------------------------------------------------Ernest Miller Hemingway%n");
     this.Delay();
@@ -1585,6 +1720,20 @@ winout: method to show whether Reznov has escaped
       try{
         Thread thread = Thread.currentThread();
         thread.sleep(2000);//2S
+      }catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+  }
+
+  /**
+    Short delay the program for 2s, make the program show texts slowly.
+    @return No returns needed.
+  */
+  public void SDelay(){
+      try{
+        Thread thread = Thread.currentThread();
+        thread.sleep(500);//2S
       }catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

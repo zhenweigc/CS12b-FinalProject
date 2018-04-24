@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.Scanner;
 import java.lang.Object.*;
 import javax.swing.event.*;
 import java.awt.Font;
@@ -9,9 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-
 public class GameGUI extends JFrame{
-
   //in order to connect map interaction with info panel
 public int mapIndex;
 public int mouseMap;
@@ -22,8 +21,35 @@ public JTextArea logTA;
 public JTextField inputTF;
 public JScrollPane scroll;
 public static Final core;
+public Boolean enterB=false;
+public static statswindow display2;
+
+/**
+This is the ActionListener used for the "Enter" Button
+*/
+	protected class EnterButton implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			inputTF.setEditable(false);
+			enterB=true;
+			core.SDelay();
+			enterB=false;
+			inputTF.setEditable(true);
+			inputTF.setText("");
+			}
+		}
+
+/**
+	This is the ActionListener used for the "Enter Button"
+*/
+	protected class checkstats implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			display2.setVisible(true);
+		}
+	}
+
 	public GameGUI(){
-		//super();
     this.setTitle("This War of Mine 2.0");
 		content = new JPanel();
 		content.setLayout(new BorderLayout());
@@ -67,6 +93,7 @@ public static Final core;
     c3.gridx = 1;
     c3.gridy = 1;
     buttonP.add(stats,c3);
+		stats.addActionListener(new checkstats());
 
     GridBagConstraints c4 = new GridBagConstraints();
     right = new JButton("Right");right.setPreferredSize(new Dimension(70, 20));
@@ -93,7 +120,7 @@ public static Final core;
     logP.setLayout(new GridBagLayout());
 
     GridBagConstraints p1 = new GridBagConstraints();
-    logTA = new JTextArea("\n");
+    logTA = new JTextArea("");
     logTA.setEditable(false);
 		JTextAreaOutputStream out = new JTextAreaOutputStream(logTA);
     System.setOut (new PrintStream (out));
@@ -103,11 +130,7 @@ public static Final core;
 		scroll.setPreferredSize(new Dimension(1200,300));
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-/**
-		logTA.selectAll();
- 		logTA.setCaretPosition(logTA.getSelectedText().length());
- 		logTA.requestFocus();
-*/
+
     p1.gridx = 0;
     p1.gridy = 0;
     p1.gridwidth = 4;
@@ -128,6 +151,7 @@ public static Final core;
     p3.gridx = 3;
     p3.gridy = 1;
     logP.add(inputB, p3);
+		inputB.addActionListener(new EnterButton());
 
     GridBagConstraints logPc = new GridBagConstraints();
     logPc.gridx = 1;
@@ -156,6 +180,23 @@ public static Final core;
   	//this.setSize(1500,1500);
 		this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH);
     this.setVisible(true);
+
+/**
+		statsContent=new JPanel();
+		gridbag = new GridBagLayout();
+		statsContent.setLayout(gridbag);
+		String temp=core.getDay()+"";
+		dayNum=new JLabel(temp,JLabel.CENTER);
+		gridbag.setConstraints(dayNum, new GridBagConstraints(0, 0, 1,
+              1, 1.0, 1.0,GridBagConstraints.CENTER,
+          GridBagConstraints.BOTH, new Insets(20, 20, 20, 20	),
+            0, 0));
+		statsContent.add(dayNum);
+		statsWindow.setContentPane(statsContent);
+    statsWindow.setLocation(0,0);
+  	statsWindow.setSize(400,400);
+    statsWindow.setVisible(false);
+		*/
 	}
 
 
@@ -166,7 +207,7 @@ public static Final core;
   //constructing a interactive map of 15x11 scale
   public class Map extends JPanel implements MouseListener, MouseMotionListener{
       int mousemoveIndex;
-      int currentx, currenty;
+      int currentx,currenty;
       ArrayList<Block> blocks = new ArrayList<Block>();
       public Map(){
         setBackground(Color.black);
@@ -287,7 +328,9 @@ public static Final core;
 
     public static void main(String[] args) {
       GameGUI display=new GameGUI();
-      core=new Final(display);
+			core=new Final(display);
+			display2=new statswindow(core);
+			//System.out.println(core.getDay());
 
 	    core.Introduction();
 			display.refocus();
@@ -304,14 +347,15 @@ public static Final core;
 	        ValidMove=core.Move(s.nextLine().charAt(0));
 	      }while(!ValidMove);
 				display.mapP.repaint();
-
 	      core.PositionReport();
 				display.refocus();
 	      core.PlayerStatus();
 				display.refocus();
 	      core.action();
+				display2.update();
 				display.refocus();
 	      core.sleep();
+				display2.update();
 				display.refocus();
 	    }while(!core.win());
 	    core.End();
