@@ -23,7 +23,6 @@ public class Final{
   public Boolean Badge=false;
   public Boolean TryEscape=false;
   public GameGUI frame;
-  public Scanner s;
 
 
   /**
@@ -244,7 +243,7 @@ public class Final{
     return this.Badge;
   }
   /**
-  This subroutine is used for player movement.
+  This subroutine is used for player movement with command line.
   @param M the player's input, if valid it will change current CurrentCoordinate
   @return return true, if the movement is valid; otherwise, false
   */
@@ -387,13 +386,21 @@ public class Final{
   public void action(){
     System.out.printf("Time to do something....%n");
     System.out.printf("You need to make a choice among actions available in your current position. If you have decided, enter the number before the choice to choose. Choose wisely.%n");
-    Scanner y=new Scanner(System.in);
     int[] Available=PrintAction();
     int choice=0;
+    System.out.println("Please input the No. you decide which is in font of available choices.\n----------------------------------------------------------------------");
     while(!this.CheckAvailable(choice,Available)){
-      System.out.println("Please input the No. you decide which is in font of available choices.");
-      choice=TextIO.getlnInt();
+      while(!frame.enterB){
+        frame.intOnly=true;
+        String input=frame.inputTF.getText();
+        try{
+          choice=Integer.parseInt(input);
+        }catch(java.lang.NumberFormatException e){
+          this.SDelay();
+        }
+      }
     }
+    frame.intOnly=false;
     switch(choice){
       case 1:
         this.Scavenge();
@@ -759,7 +766,10 @@ public class Final{
     Boolean continueTrade=false;
     this.PlayerItemStatus();
     System.out.printf("%n%nDo you want to trade with them? Input 'yes' to trade, else to leave.%n");
-    String a=TextIO.getln();
+    String a="";
+    while(!frame.enterB){
+      a=frame.inputTF.getText();
+    }
     if(!((a.toUpperCase()).equals("YES"))){
       return;
     }
@@ -769,20 +779,34 @@ public class Final{
     String[] Choice4={"food","medicine","bandage"};
     String[] Choice7={"valuables","spyID","Badge","cipher"};
     do{
-      String StringInput;
-      int typeInput;
+      String StringInput="";
+      int typeInput=-1;
       System.out.printf("Input the number of the choice of item you wish to trade.%n");
-      typeInput=TextIO.getlnInt();
+      //typeInput=TextIO.getlnInt();
       while((typeInput>7||typeInput<1)||(typeInput>4&&(!chance))){
-        System.out.printf("Invalid choices, input again.%n");
-        typeInput=TextIO.getlnInt();
+        //System.out.printf("Invalid choices, input again.%n");
+        //typeInput=TextIO.getlnInt();
+        while(!frame.enterB){
+          frame.intOnly=true;
+          String input=frame.inputTF.getText();
+          try{
+            typeInput=Integer.parseInt(input);
+          }catch(java.lang.NumberFormatException e){
+            this.SDelay();
+          }
+        }
       }
       switch(typeInput){
         case 1:
           Boolean ValidInput=true;
           int input=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
-          StringInput=(TextIO.getln()).toUpperCase();
+          //StringInput=(TextIO.getln()).toUpperCase();
+          while(!frame.enterB){
+            StringInput=frame.inputTF.getText();
+            this.SDelay();
+          }
+          StringInput=StringInput.toUpperCase();
           for(int k=1;k<Choice1.length;k++){
             if(StringInput.equals(Choice1[k].toUpperCase())){
               //Valid Input
@@ -791,11 +815,15 @@ public class Final{
               break;
             }else{
               ValidInput=false;
+              System.out.printf("Please make sure you input a valid name. Please re-input.%n");
             }
           }
           while(!ValidInput){
-            System.out.printf("Please make sure you input a valid name. Please re-input.%n");
-            StringInput=(TextIO.getln()).toUpperCase();
+            while(!frame.enterB){
+              StringInput=frame.inputTF.getText();
+              this.SDelay();
+            }
+            StringInput=StringInput.toUpperCase();
             for(int k=1;k<Choice1.length;k++){
               if(StringInput.equals(Choice1[k].toUpperCase())){
                 //Valid Input
@@ -829,7 +857,12 @@ public class Final{
           Boolean ValidInput1=true;
           int input1=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
-          StringInput=(TextIO.getln()).toUpperCase();
+          //StringInput=(TextIO.getln()).toUpperCase();
+          while(!frame.enterB){
+            StringInput=frame.inputTF.getText();
+            this.SDelay();
+          }
+          StringInput=StringInput.toUpperCase();
           for(int k=1;k<Choice2.length;k++){
             if(StringInput.equals(Choice2[k].toUpperCase())){
               //Valid Input
@@ -838,11 +871,16 @@ public class Final{
               break;
             }else{
               ValidInput1=false;
+              System.out.printf("Please make sure you input a valid name. Please re-input.%n");
             }
           }
           while(!ValidInput1){
-            System.out.printf("Please make sure you input a valid name. Please re-input.%n");
-            StringInput=(TextIO.getln()).toUpperCase();
+            while(!frame.enterB){
+              StringInput=frame.inputTF.getText();
+              this.SDelay();
+            }
+            StringInput=StringInput.toUpperCase();
+            //StringInput=(TextIO.getln()).toUpperCase();
             for(int k=1;k<Choice2.length;k++){
               if(StringInput.equals(Choice2[k].toUpperCase())){
                 //Valid Input
@@ -874,7 +912,12 @@ public class Final{
           Boolean ValidInput2=true;
           int input2=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
-          StringInput=(TextIO.getln()).toUpperCase();
+          //StringInput=(TextIO.getln()).toUpperCase();
+          while(!frame.enterB){
+            StringInput=frame.inputTF.getText();
+            this.SDelay();
+          }
+          StringInput=StringInput.toUpperCase();
           for(int k=1;k<Choice3.length;k++){
             if(StringInput.equals(Choice3[k].toUpperCase())){
               //Valid Input
@@ -883,11 +926,16 @@ public class Final{
               break;
             }else{
               ValidInput2=false;
+              System.out.printf("Please make sure you input a valid name. Please re-input.%n");
             }
           }
           while(!ValidInput2){
-            System.out.printf("Please make sure you input a valid name. Please re-input.%n");
-            StringInput=(TextIO.getln()).toUpperCase();
+            while(!frame.enterB){
+              StringInput=frame.inputTF.getText();
+              this.SDelay();
+            }
+            StringInput=StringInput.toUpperCase();
+            //StringInput=(TextIO.getln()).toUpperCase();
             for(int k=1;k<Choice3.length;k++){
               if(StringInput.equals(Choice3[k].toUpperCase())){
                 //Valid Input
@@ -919,7 +967,12 @@ public class Final{
           Boolean ValidInput3=true;
           int input3=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
-          StringInput=(TextIO.getln()).toUpperCase();
+          //StringInput=(TextIO.getln()).toUpperCase();
+          while(!frame.enterB){
+            StringInput=frame.inputTF.getText();
+            this.SDelay();
+          }
+          StringInput=StringInput.toUpperCase();
           for(int k=1;k<Choice4.length;k++){
             if(StringInput.equals(Choice4[k].toUpperCase())){
               //Valid Input
@@ -928,11 +981,16 @@ public class Final{
               break;
             }else{
               ValidInput3=false;
+              System.out.printf("Please make sure you input a valid name. Please re-input.%n");
             }
           }
           while(!ValidInput3){
-            System.out.printf("Please make sure you input a valid name. Please re-input.%n");
-            StringInput=(TextIO.getln()).toUpperCase();
+            //StringInput=(TextIO.getln()).toUpperCase();
+            while(!frame.enterB){
+              StringInput=frame.inputTF.getText();
+              this.SDelay();
+            }
+            StringInput=StringInput.toUpperCase();
             for(int k=1;k<Choice4.length;k++){
               if(StringInput.equals(Choice4[k].toUpperCase())){
                 //Valid Input
@@ -984,7 +1042,12 @@ public class Final{
           Boolean ValidInput4=true;
           int input4=0;
           System.out.printf("Now enter name of the item you want to exchange to.%n");
-          StringInput=(TextIO.getln()).toUpperCase();
+          //StringInput=(TextIO.getln()).toUpperCase();
+          while(!frame.enterB){
+            StringInput=frame.inputTF.getText();
+            this.SDelay();
+          }
+          StringInput=StringInput.toUpperCase();
           for(int k=1;k<Choice7.length;k++){
             if(StringInput.equals(Choice7[k].toUpperCase())){
               //Valid Input
@@ -993,11 +1056,16 @@ public class Final{
               break;
             }else{
               ValidInput4=false;
+              System.out.printf("Please make sure you input a valid name. Please re-input.%n");
             }
           }
           while(!ValidInput4){
-            System.out.printf("Please make sure you input a valid name. Please re-input.%n");
-            StringInput=(TextIO.getln()).toUpperCase();
+            //StringInput=(TextIO.getln()).toUpperCase();
+            while(!frame.enterB){
+              StringInput=frame.inputTF.getText();
+              this.SDelay();
+            }
+            StringInput=StringInput.toUpperCase();
             for(int k=1;k<Choice7.length;k++){
               if(StringInput.equals(Choice7[k].toUpperCase())){
                 //Valid Input
@@ -1044,7 +1112,12 @@ public class Final{
         }
       this.PlayerItemStatus();
       System.out.printf("Do you want to continue trading with them? Input 'yes' to continue, else to quit.%n");
-      String b=TextIO.getln();
+      //String b=TextIO.getln();
+      String b="";
+      while(!frame.enterB){
+        b=frame.inputTF.getText();
+        this.SDelay();
+      }
       if((b.toUpperCase()).equals("YES")){
         continueTrade=true;
       }else{
@@ -1434,11 +1507,31 @@ public class Final{
     }
     System.out.printf("Please choose and input one of those No. in front of the coordinate you want to travel to.%n");
     int input=0;
-    input=TextIO.getlnInt();
+    //input=TextIO.getlnInt();
+    while(!frame.enterB){
+      frame.intOnly=true;
+      String temp=frame.inputTF.getText();
+      try{
+        input=Integer.parseInt(temp);
+      }catch(java.lang.NumberFormatException e){
+        this.SDelay();
+      }
+    }
+    frame.intOnly=false;
     while(input==o||input>9||input<1){
       System.out.printf("Invalid input, input again.%n");
-        input=TextIO.getlnInt();
+        //input=TextIO.getlnInt();
+      while(!frame.enterB){
+        frame.intOnly=true;
+        String temp=frame.inputTF.getText();
+        try{
+          input=Integer.parseInt(temp);
+        }catch(java.lang.NumberFormatException e){
+          this.SDelay();
+        }
+      }
     }
+    frame.intOnly=false;
     System.out.printf("Enduring the sewer stench, you finally reach your destination.%n");
     this.CurrentCoordinate[0]=SewerCoordinate[input-1][0];
     this.CurrentCoordinate[1]=SewerCoordinate[input-1][1];
@@ -1465,7 +1558,11 @@ public class Final{
     }
     if(this.injured&&(this.bandage>0)){
       System.out.printf("You are injured, do you want to use bandage to treat yourself? Input 'yes' if you want to.%n");
-      String Bdecision=TextIO.getln();
+      //String Bdecision=TextIO.getln();
+      String Bdecision="";
+      while(!frame.enterB){
+        Bdecision=frame.inputTF.getText();
+      }
       if((Bdecision.toUpperCase()).equals("YES")){
         this.bandage-=1;
         this.FastRecover=true;
@@ -1473,7 +1570,11 @@ public class Final{
     }
     if(this.sick&&(this.medicine>0)){
       System.out.printf("You are sick, do you want to use medicine to treat yourself? Input 'yes' if you want to.%n");
-      String Mdecision=TextIO.getln();
+      //String Mdecision=TextIO.getln();
+      String Mdecision="";
+      while(!frame.enterB){
+        Mdecision=frame.inputTF.getText();
+      }
       if((Mdecision.toUpperCase()).equals("YES")){
         this.medicine-=1;
         this.sick=false;
@@ -1670,8 +1771,6 @@ winout: method to show whether Reznov has escaped
     this.Delay();
     System.out.println("Are you ready for the game? Type 'yes' to start, else to quit.");
     this.Delay();
-    //s = new Scanner(System.in);
-    //String input=s.nextLine();
     String input="";
     while(!frame.enterB){
       input=frame.inputTF.getText();

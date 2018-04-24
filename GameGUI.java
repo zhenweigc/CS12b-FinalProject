@@ -16,16 +16,23 @@ public int mapIndex;
 public int mouseMap;
 public JPanel content,headerPanel,info,control,buttonP,logP,diceP;
 public Map mapP;
-public JButton up,left,stats,right,down,inputB;
+public JButton stats,inputB;
+public JButton up = new JButton("U");
+public JButton left = new JButton("L");
+public JButton down = new JButton("D");
+public JButton right = new JButton("R");
+
 public JTextArea logTA;
 public JTextField inputTF;
 public JScrollPane scroll;
 public static Final core;
 public Boolean enterB=false;
 public static statswindow display2;
-
+public Boolean intOnly=false;
+public static Boolean movingTime=false;
+public static Boolean MoveDone=false;
 /**
-This is the ActionListener used for the "Enter" Button
+	This is the ActionListener used for the "Enter" Button
 */
 	protected class EnterButton implements ActionListener{
 		@Override
@@ -40,12 +47,47 @@ This is the ActionListener used for the "Enter" Button
 		}
 
 /**
+
+*/
+	//protected
+/**
 	This is the ActionListener used for the "Enter Button"
 */
 	protected class checkstats implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e){
 			display2.setVisible(true);
+		}
+	}
+
+/**
+	This is the keyListener for inputTF JTextField.
+*/
+	protected class restrictInputType implements KeyListener{
+		@Override
+		public void keyTyped(KeyEvent e){
+			if(intOnly){
+				int keyChar = e.getKeyChar();
+          if(keyChar >= KeyEvent.VK_0 && keyChar <= KeyEvent.VK_9){
+          }else{
+            e.consume(); //Block non-int input
+          }
+			}
+		}
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+		}
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if(e.getKeyChar()==KeyEvent.VK_ENTER){
+				inputTF.setEditable(false);
+				enterB=true;
+				core.SDelay();
+				enterB=false;
+				inputTF.setEditable(true);
+				inputTF.setText("");
+			}
 		}
 	}
 
@@ -77,13 +119,14 @@ This is the ActionListener used for the "Enter" Button
     buttonP = new JPanel();
     buttonP.setLayout(new GridBagLayout());
     GridBagConstraints c1 = new GridBagConstraints();
-    up = new JButton("Up");up.setPreferredSize(new Dimension(70, 20));
+    up.setPreferredSize(new Dimension(70, 20));
     c1.gridx = 1;
     c1.gridy = 0;
     buttonP.add(up,c1);
 
+
     GridBagConstraints c2 = new GridBagConstraints();
-    left = new JButton("Left");left.setPreferredSize(new Dimension(70, 20));
+    left.setPreferredSize(new Dimension(70, 20));
     c2.gridx = 0;
     c2.gridy = 1;
     buttonP.add(left,c2);
@@ -96,16 +139,17 @@ This is the ActionListener used for the "Enter" Button
 		stats.addActionListener(new checkstats());
 
     GridBagConstraints c4 = new GridBagConstraints();
-    right = new JButton("Right");right.setPreferredSize(new Dimension(70, 20));
+    right.setPreferredSize(new Dimension(70, 20));
     c4.gridx = 2;
     c4.gridy = 1;
     buttonP.add(right,c4);
 
     GridBagConstraints c5 = new GridBagConstraints();
-    down = new JButton("Down");down.setPreferredSize(new Dimension(70, 20));
+    down.setPreferredSize(new Dimension(70, 20));
     c5.gridx = 1;
     c5.gridy = 2;
     buttonP.add(down,c5);
+
 
     //add buttonP constrain and add to control panel
     GridBagConstraints buttonPc  = new GridBagConstraints();
@@ -144,6 +188,7 @@ This is the ActionListener used for the "Enter" Button
     p2.gridy = 1;
     p2.gridwidth =1;
     logP.add(inputTF, p2);
+		inputTF.addKeyListener(new restrictInputType());
 
     GridBagConstraints p3 = new GridBagConstraints();
     inputB = new JButton("Enter");
@@ -172,31 +217,56 @@ This is the ActionListener used for the "Enter" Button
 
     content.add(control, BorderLayout.PAGE_END);
 
+		up.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(core.CurrentCoordinate[0]==0){
+					System.out.println("You cannot go further up.");
+			 	}else{
+					core.CurrentCoordinate[0]-=1;
+				}
+			}
+		});
 
+		down.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(core.CurrentCoordinate[0]==14){
+		      System.out.println("You cannot go further down.");
+				}else{
+					core.CurrentCoordinate[0]+=1;
+				}
+			}
+		});
 
-    this.setContentPane(content);
+		right.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(core.CurrentCoordinate[1]==10){
+		      System.out.println("You cannot go further right.");
+				}else{
+					core.CurrentCoordinate[1]+=1;
+				}
+			}
+		});
+
+		left.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				if(core.CurrentCoordinate[1]==0){
+		      System.out.println("You cannot go further left.");
+				}else{
+					core.CurrentCoordinate[1]-=1;
+				}
+			}
+		});
+
+		this.setContentPane(content);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //this.setLocation(0,0);
   	//this.setSize(1500,1500);
 		this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH);
     this.setVisible(true);
-
-/**
-		statsContent=new JPanel();
-		gridbag = new GridBagLayout();
-		statsContent.setLayout(gridbag);
-		String temp=core.getDay()+"";
-		dayNum=new JLabel(temp,JLabel.CENTER);
-		gridbag.setConstraints(dayNum, new GridBagConstraints(0, 0, 1,
-              1, 1.0, 1.0,GridBagConstraints.CENTER,
-          GridBagConstraints.BOTH, new Insets(20, 20, 20, 20	),
-            0, 0));
-		statsContent.add(dayNum);
-		statsWindow.setContentPane(statsContent);
-    statsWindow.setLocation(0,0);
-  	statsWindow.setSize(400,400);
-    statsWindow.setVisible(false);
-		*/
 	}
 
 
@@ -325,6 +395,53 @@ This is the ActionListener used for the "Enter" Button
     }
 }
 
+/**
+	This is the ActionListener used for four direction button.
+*/
+/**
+	protected class MoveButton implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			char M='U';
+			//String chosed=((JComponent)e.getSource()).getName();
+			//M=chosed.charAt(0);
+			MoveDone=false;
+			if(movingTime){
+				if (core.CurrentCoordinate[1]==0 && M=='L'){
+		      System.out.println("You cannot go further left.");
+		    } else if (core.CurrentCoordinate[1]==10 && M=='R'){
+		      System.out.println("You cannot go further right.");
+		    } else if (core.CurrentCoordinate[0]==14 && M=='D'){
+		      System.out.println("You cannot go further down.");
+		    } else if (core.CurrentCoordinate[0]==0 && M=='U'){
+		      System.out.println("You cannot go further up.");
+		    } else {
+
+				}
+		    if (M=='U'){
+		      core.CurrentCoordinate[0]-=1;
+					MoveDone=true;
+					movingTime=false;
+		    }else if(M=='D'){
+		      core.CurrentCoordinate[0]+=1;
+					MoveDone=true;
+					movingTime=false;
+		    }else if(M=='L'){
+		      core.CurrentCoordinate[1]-=1;
+					MoveDone=true;
+					movingTime=false;
+		    }else if(M=='R'){
+		      core.CurrentCoordinate[1]+=1;
+					MoveDone=true;
+					movingTime=false;
+		    }else {
+		      System.out.println("ERROR!");
+		    }
+			}
+			core.SDelay();
+		}
+	}
+*/
 
     public static void main(String[] args) {
       GameGUI display=new GameGUI();
@@ -335,22 +452,27 @@ This is the ActionListener used for the "Enter" Button
 	    core.Introduction();
 			display.refocus();
 	    do{
-	      Scanner s = new Scanner(System.in);
-	      core.PlayerStatus();
+	      //Scanner s = new Scanner(System.in);
+	      //core.PlayerStatus();
 				display.refocus();
 	      core.PositionReport();
 				display.refocus();
-	      System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
-	      Boolean ValidMove=true;
+	      //System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
+/**
+				Boolean ValidMove=true;
 	      do{
 	      //  char M=s.nextLine().charAt(0);
 	        ValidMove=core.Move(s.nextLine().charAt(0));
 	      }while(!ValidMove);
+*/
+				/**movingTime=true;
+				System.out.println("Click one of the direction button to move.");
+				do{
+				}while(!MoveDone);
+				*/
 				display.mapP.repaint();
 	      core.PositionReport();
-				display.refocus();
-	      core.PlayerStatus();
-				display.refocus();
+	      //core.PlayerStatus();
 	      core.action();
 				display2.update();
 				display.refocus();

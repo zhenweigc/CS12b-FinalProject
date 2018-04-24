@@ -124,5 +124,84 @@ public class statswindow extends JFrame{
   public void update(){
     String temp="Day No."+C.getDay();
     this.dayNum.setText(temp);
+    temp="Number of units of food you own:"+C.getFood();
+    this.foodNum.setText(temp);
+
+    temp="Your HP:"+C.getHp();
+    this.hpNum.setText(temp);
+
+    if(C.getPistol()){
+      temp="You have a pistol.";
+    }else{
+      temp="You don't own a pistol.";
+    }
+    this.pis.setText(temp);
+
+    if(C.getAutomaticRifle()){
+      temp="You have an automatic rifle.";
+    }else{
+      temp="You don't own an automatic rifle.";
+    }
+    this.auto.setText(temp);
+
+    temp="You have "+C.getAmmo()+" bullets.";
+    this.ammoNum.setText(temp);
+
+    temp="Medicine: "+C.getMedicine();
+    this.medicineNum.setText(temp);
+
+    temp="Bandage: "+C.getBandage();
+    this.bandageNum.setText(temp);
+
+    temp="Valuables: "+C.getValuables();
+    this.valuablesNum.setText(temp);
+
+    temp="Moral value:"+C.getMoral();
+    this.MoralNum.setText(temp);
+
+    if(C.getSick()){
+      temp="You are sick.";
+    }else{
+      temp="You are not sick.";
+    }
+    this.sickNum.setText(temp);
+
+    temp="Fullness meter:"+C.getHungry();
+    this.hungryNum.setText(temp);
+
+    if(C.getFastRecover()){
+      temp="You have bandaged yourself.";
+    }else{
+      temp="";
+    }
+    this.FR.setText(temp);
+
+    if(C.getInjured()){
+      temp="You are injured";
+    }else{
+      temp="You are not injured";
+    }
+    this.Inj.setText(temp);
+
+    if(C.getSpyID()){
+      temp="You have a spy ID.";
+    }else{
+      temp="You don't have a spy ID.";
+    }
+    this.SID.setText(temp);
+
+    if(C.getCipher()){
+      temp="You know the rebel cipher.";
+    }else{
+      temp="You don't know the rebel cipher.";
+    }
+    this.SiFer.setText(temp);
+
+    if(C.getB()){
+      temp="You have the rebel badge.";
+    }else{
+      temp="You don't have the rebel badge.";
+    }
+    this.BG.setText(temp);
   }
 }
