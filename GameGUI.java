@@ -293,7 +293,7 @@ public class GameGUI extends JFrame{
 
 				Collections.addAll(newData,core.CurrentCoordinate, core.getDay(), core.getHp(), core.getFood(), core.getPistol(),core.getAutomaticRifle(), core.getAmmo(), core.getMedicine(),core.getBandage(), core.getValuables(), core.getMoral(), core.getSick(), core.getHungry(), core.getFastRecover(), core.getInjured(), core.getSpyID(), core.getCipher(), core.getBadgeValue(),core.getTryEscape() );
 				core.createSaveFile(saveKey,newData);
-				System.out.print("Your save key has been set as : " + saveKey + "\n Press Load and enter 0 if you wish to start a new game. ");
+				System.out.print("Your save key has been set as : " + saveKey + "\n Enter 0 and press Load if you wish to start a new game. ");
 
 
 
