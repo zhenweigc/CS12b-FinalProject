@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.lang.Object.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 
 public class Gameframe extends JPanel {
@@ -19,9 +20,19 @@ public class Gameframe extends JPanel {
 		content.setLayout(new BorderLayout());
 
     // create the header
+
+      //create save and load buttons
+      JButton save = new JButton("Save");
+      JButton load = new JButton("Load");
+
+
 		JPanel headerPanel = new JPanel();
 		headerPanel.add(new JLabel("<html><h1>War Of Mine</h1></html>"));
+		headerPanel.add(save);
+		headerPanel.add(load);
 		content.add(headerPanel,BorderLayout.PAGE_START);
+
+
 
     // create the map
     Map mapP = new Map();
@@ -92,7 +103,7 @@ public class Gameframe extends JPanel {
     logP.add(logTA, p1);
 
     GridBagConstraints p2 = new GridBagConstraints();
-    JTextField inputTF = new JTextField("INPUT FEILD");
+    JTextField inputTF = new JTextField("INPUT FIELD");
     inputTF.setPreferredSize(new Dimension(360,40));
     p2.gridx = 0;
     p2.gridy = 1;
@@ -231,6 +242,7 @@ public class Gameframe extends JPanel {
     private static void createAndShowGUI() {
       //Create and set up the window.
       JFrame frame = new JFrame("WAR OF MINE");
+
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       //Create and set up the content pane.
