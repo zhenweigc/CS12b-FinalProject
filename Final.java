@@ -15,8 +15,8 @@ public class Final {
 
 
 
-  public void setDay(int day) {
-    this.day = day;
+  public void setDay(int day1) {
+    day = day1;
   }
 
   public void setHp(int hp) {
@@ -87,9 +87,6 @@ public class Final {
     TryEscape = tryEscape;
   }
 
-  public void setFrame(GameGUI frame) {
-    this.frame = frame;
-  }
 
 
 
@@ -103,6 +100,7 @@ public class Final {
 
   public int day = 1;
   public int hp = 100;
+
   public int food = 10;
   public Boolean pistol = false;
   public Boolean AutomaticRifle = false;
@@ -230,7 +228,7 @@ public class Final {
    * @return Return the variable int day.
    */
   public int getDay() {
-    return this.day;
+    return day;
   }
 
   /**
@@ -239,7 +237,7 @@ public class Final {
    * @return Return health point.
    */
   public int getHp() {
-    return this.hp;
+    return hp;
   }
 
   /**
@@ -248,7 +246,7 @@ public class Final {
    * @return Return number of units of food.
    */
   public int getFood() {
-    return this.food;
+    return food;
   }
 
   /**
@@ -257,7 +255,7 @@ public class Final {
    * @return Return whether you have a pistol or not.
    */
   public Boolean getPistol() {
-    return this.pistol;
+    return pistol;
   }
 
   /**
@@ -266,7 +264,7 @@ public class Final {
    * @return Return whether you have an AutomaticRiflel or not.
    */
   public Boolean getAutomaticRifle() {
-    return this.AutomaticRifle;
+    return AutomaticRifle;
   }
 
   /**
@@ -275,7 +273,7 @@ public class Final {
    * @return Return number of ammo.
    */
   public int getAmmo() {
-    return this.ammo;
+    return ammo;
   }
 
   /**
@@ -284,7 +282,7 @@ public class Final {
    * @return Return number of medicine.
    */
   public int getMedicine() {
-    return this.medicine;
+    return medicine;
   }
 
   /**
@@ -293,7 +291,7 @@ public class Final {
    * @return Return number of bandage.
    */
   public int getBandage() {
-    return this.bandage;
+    return bandage;
   }
 
   /**
@@ -302,7 +300,7 @@ public class Final {
    * @return Return number of valuables.
    */
   public int getValuables() {
-    return this.valuables;
+    return valuables;
   }
 
   /**
@@ -311,7 +309,7 @@ public class Final {
    * @return Return your moral value.
    */
   public int getMoral() {
-    return this.Moral;
+    return Moral;
   }
 
   /**
@@ -320,7 +318,7 @@ public class Final {
    * @return Return whether you are sick or not.
    */
   public Boolean getSick() {
-    return this.sick;
+    return sick;
   }
 
   /**
@@ -329,7 +327,7 @@ public class Final {
    * @return Return how hungry the player is.
    */
   public int getHungry() {
-    return this.hungry;
+    return hungry;
   }
 
   /**
@@ -338,7 +336,7 @@ public class Final {
    * @return Return whether you are in state of fast recover.
    */
   public Boolean getFastRecover() {
-    return this.FastRecover;
+    return FastRecover;
   }
 
   /**
@@ -347,7 +345,7 @@ public class Final {
    * @return Return whether you are injured.
    */
   public Boolean getInjured() {
-    return this.injured;
+    return injured;
   }
 
   /**
@@ -356,7 +354,7 @@ public class Final {
    * @return Return whether you have a spy id.
    */
   public Boolean getSpyID() {
-    return this.spyID;
+    return spyID;
   }
 
   /**
@@ -365,7 +363,7 @@ public class Final {
    * @return Return the boolean.
    */
   public Boolean getCipher() {
-    return this.Cipher;
+    return Cipher;
   }
 
   /**
@@ -374,7 +372,7 @@ public class Final {
    * @return Return the boolean.
    */
   public Boolean getB() {
-    return this.Badge;
+    return Badge;
   }
 
   /**

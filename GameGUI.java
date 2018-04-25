@@ -312,6 +312,7 @@ public class GameGUI extends JFrame{
 					System.out.print("\n Save File Not Found");
 				}
 				else{
+
 					core.setCurrentCoordinate ((int[]) loadedFile.get(0));
 					core.setDay  ((int) loadedFile.get(1));
 					core.setHp((int) loadedFile.get(2));
@@ -332,7 +333,7 @@ public class GameGUI extends JFrame{
 					core.setBadge ((boolean) loadedFile.get(16));
 					core.setTryEscape ( (boolean) loadedFile.get(17));
 
-					System.out.print("Game loaded.");
+					System.out.print("Game loaded. It is day " + core.day);
 
 
 
