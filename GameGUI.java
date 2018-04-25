@@ -88,7 +88,7 @@ public int[] SelectedCoordinate={14,0};
         temp=temp+"\nYou encounter a hospital, which "+status+"\n";
         break;
       case 'D':
-        temp=temp+"\nYou see something beckoning to an earlier time.\nIt's a church steeple.\nPerhaps it can provide holy refuge in this time of war? The church "+status+"\n";
+        temp=temp+"\nYou see something beckoning to an earlier time.\nIt's a church steeple.\nPerhaps it can provide holy refuge in this time of war?\nThe church "+status+"\n";
         break;
       default:
         temp=temp+"\nYou are now at the gate of this city.\nIf you can sneak out and trick all those rebels into believing that you are one of their spies, you could escape the city.\nBut they are not fools, so you need to prove yourself.\n";
@@ -493,9 +493,7 @@ public int[] SelectedCoordinate={14,0};
 	    core.Introduction();
 			display.refocus();
 	    do{
-				display.refocus();
 	      core.PositionReport();
-				display.refocus();
 				movingTime=true;
 				System.out.println("Click one of the direction button to move.");
 				while(!MoveDone){
@@ -504,12 +502,11 @@ public int[] SelectedCoordinate={14,0};
 				}
 				movingTime=false;
 	      core.PositionReport();
+				display.refocus();
 	      core.action();
 				display2.update();
-				display.refocus();
 	      core.sleep();
 				display2.update();
-				display.refocus();
 				MoveDone=false;
 	    }while(!core.win());
 	    core.End();

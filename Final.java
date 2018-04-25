@@ -63,7 +63,7 @@ public class Final{
   public Final(GameGUI use){
     this.frame=use;
   }
-  
+
 /**
   This subroutine is used to return the number of day in game.
   @return Return the variable int day.
