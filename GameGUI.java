@@ -14,14 +14,14 @@ public class GameGUI extends JFrame{
   //in order to connect map interaction with info panel
 public int mapIndex;
 public int mouseMap;
-public JPanel content,headerPanel,info,control,buttonP,logP,diceP;
+public JPanel content,headerPanel,info,control,buttonP,logP,diceP,infoimage;
 public Map mapP;
 public JButton stats,inputB;
 public JButton up = new JButton("U");
 public JButton left = new JButton("L");
 public JButton down = new JButton("D");
 public JButton right = new JButton("R");
-
+public JTextArea showInfo;
 public JTextArea logTA;
 public JTextField inputTF;
 public JScrollPane scroll;
@@ -31,6 +31,8 @@ public static statswindow display2;
 public Boolean intOnly=false;
 public static Boolean movingTime=false;
 public static Boolean MoveDone=false;
+public int[] SelectedCoordinate={14,0};
+
 /**
 	This is the ActionListener used for the "Enter" Button
 */
@@ -45,11 +47,59 @@ public static Boolean MoveDone=false;
 			inputTF.setText("");
 			}
 		}
-
+/**
+	This subroutine is used for updating postion location
+*/
+	public String posRepo(int[] selCoor){
+		String temp="";
+    temp=temp+"Selected coordinate is ("+SelectedCoordinate[1]+","+SelectedCoordinate[0]+"), which is a (x,y) coordinate.";
+    String raw=core.Map[selCoor[0]][selCoor[1]];
+    String status;
+    status=core.PositionStatusReport(raw.charAt(1));
+    switch(raw.charAt(0)){
+      case 'A':
+        temp=temp+"\nYou encounter an apartment that "+status+"\n";
+        break;
+      case 'T':
+        temp=temp+"\nYou come across a supermarket that "+status+"\n";
+        break;
+      case 'M':
+        temp=temp+"\nYou are at the front of a Military base.\n'A sign of government power and a guarantee of safety.', the president said. \n'Yeah, definitely,' You tell youself.\nThe building "+status+"\n";
+        break;
+      case 'F':
+        temp=temp+"\nYou stand before a construction field.\n'Politicians promised to finish this building, but they could not fulfill their promises,' You tell youself.\n'This place may never be completed...' The field "+status+"\n";
+        break;
+      case 'W':
+        temp=temp+"\nYou are at the front of a warehouse, a place to store food, medicine, etc.\nIt now stores hope, too.\nThe warehouse "+status+"\n";
+        break;
+      case 'S':
+        temp=temp+"\nYou stand before a school.\n'......' You began to remember your time in school.\nBut then you tell yourself it is not a time for memories.\nThe school in front of you "+status+"\n";
+        break;
+      case 'O':
+        temp=temp+"\nAn office building...You used to be one of those white-collar workers inside.\nThis place seems so familiar, if you ignore the signs of war.\nThere are now no people working inside, it "+status+"\n";
+        break;
+      case 'R':
+        temp=temp+"\nYou approach what looks like a slum, home of bottom class people.---But war changed everything.\nDisplaced persons, refugees whose homes were destroyed all lived here now.\nThe slum "+status+"\n";
+        break;
+      case 'P':
+        temp=temp+"\nYou stumble upon a sewer entrance.\nYou can smell it before see it---War does not change this.\nThis place, full of disease, is now a safe and fast way for you to move to different parts of the city.\n";
+        break;
+      case 'H':
+        temp=temp+"\nYou encounter a hospital, which "+status+"\n";
+        break;
+      case 'D':
+        temp=temp+"\nYou see something beckoning to an earlier time.\nIt's a church steeple.\nPerhaps it can provide holy refuge in this time of war? The church "+status+"\n";
+        break;
+      default:
+        temp=temp+"\nYou are now at the gate of this city.\nIf you can sneak out and trick all those rebels into believing that you are one of their spies, you could escape the city.\nBut they are not fools, so you need to prove yourself.\n";
+        break;
+    }
+		return temp;
+	}
 /**
 
 */
-	//protected
+
 /**
 	This is the ActionListener used for the "Enter Button"
 */
@@ -103,12 +153,24 @@ public static Boolean MoveDone=false;
 
     // create the map
     mapP = new Map();
-    content.add(mapP,BorderLayout.CENTER);
+    //content.add(mapP,BorderLayout.CENTER);
 
 
 		// create the info panel
 		info = new JPanel();
-		content.add(info,BorderLayout.LINE_END);
+		infoimage=new JPanel();
+		GridBagLayout G4infoimage= new GridBagLayout();
+		infoimage.setLayout(G4infoimage);
+		G4infoimage.setConstraints(mapP,new GridBagConstraints(0, 0, 1,2, 1.0, 1.0,GridBagConstraints.CENTER,GridBagConstraints.BOTH, new Insets(40, 40, 40, 40),0, 0));
+		infoimage.add(mapP);
+
+
+		//HERE
+		showInfo=new JTextArea("");
+		showInfo.setEditable(false);
+		G4infoimage.setConstraints(showInfo,new GridBagConstraints(GridBagConstraints.RELATIVE, 0, 4,1, 1.0, 1.0,GridBagConstraints.EAST,GridBagConstraints.BOTH, new Insets(40, 40, 40, 40),0, 0));
+		infoimage.add(showInfo);
+		content.add(infoimage,BorderLayout.CENTER);
 
     //create the control JPanel
     control = new JPanel();
@@ -171,7 +233,7 @@ public static Boolean MoveDone=false;
     System.setErr(new PrintStream(out));
 
 		scroll = new JScrollPane(logTA);
-		scroll.setPreferredSize(new Dimension(1200,300));
+		scroll.setPreferredSize(new Dimension(1200,200));
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -183,7 +245,7 @@ public static Boolean MoveDone=false;
 
     GridBagConstraints p2 = new GridBagConstraints();
     inputTF = new JTextField("");
-    inputTF.setPreferredSize(new Dimension(1000,40));
+    inputTF.setPreferredSize(new Dimension(1000,30));
     p2.gridx = 0;
     p2.gridy = 1;
     p2.gridwidth =1;
@@ -205,16 +267,16 @@ public static Boolean MoveDone=false;
     logPc.weightx = 1;
     logPc.fill = GridBagConstraints.HORIZONTAL;
     control.add(logP, logPc);
+		control.setPreferredSize(new Dimension(0,300));
 
-
-
+/**
     // start add dice panel
     GridBagConstraints dicePc = new GridBagConstraints();
     diceP = new JPanel();
     dicePc.gridx = 3;
     dicePc.gridy = 0;
     control.add(diceP, dicePc);
-
+*/
     content.add(control, BorderLayout.PAGE_END);
 
 		up.addActionListener(new ActionListener(){
@@ -324,11 +386,23 @@ public static Boolean MoveDone=false;
          for(Block z : blocks){
            z.draw(g);
          }
-
-
   		 }
 
-      public void mousePressed(MouseEvent evt) { }
+      public void mousePressed(MouseEvent evt) {
+				int mouseX = evt.getX();
+        int mouseY = evt.getY();
+				for(Block i : blocks){
+					if(i.isinBlock(mouseX,mouseY)){
+						SelectedCoordinate[0]=((i.y-20)/40);
+						SelectedCoordinate[1]=((i.x-20)/40);
+						//HERE
+						String T="";
+						T=posRepo(SelectedCoordinate);
+						showInfo.setText(T);
+						break;
+					}
+				}
+			}
       public void mouseEntered(MouseEvent evt) { }
 		  public void mouseExited(MouseEvent evt) { }
 		  public void mouseClicked(MouseEvent evt) { }
@@ -341,7 +415,7 @@ public static Boolean MoveDone=false;
         int mouseX = evt.getX();
         int mouseY = evt.getY();
         for(Block i : blocks){
-          if(i.isinBlock(mouseX,mouseY)==true){
+          if(i.isinBlock(mouseX,mouseY)){
             i.color = Color.blue;
             mousemoveIndex = blocks.indexOf(i);
           } else{
@@ -430,7 +504,6 @@ public static Boolean MoveDone=false;
 				}
 				movingTime=false;
 	      core.PositionReport();
-	      //core.PlayerStatus();
 	      core.action();
 				display2.update();
 				display.refocus();

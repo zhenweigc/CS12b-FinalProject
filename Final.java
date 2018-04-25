@@ -63,50 +63,7 @@ public class Final{
   public Final(GameGUI use){
     this.frame=use;
   }
-  public static void main(String[] args){
-    /**
-    Introduction();
-  /**
-   for(int i=0;i<15;i++){
-    for(int j=0;j<11;j++){
-      System.out.print(Map[i][j]+" ");
-    }
-      System.out.println();
-  }
-*/
-  /**
-    Boolean Test=false;
-    char M;
-    while(Test!=true){
-      System.out.printf("Please input a Char.%nL for moving leftward; R for moving rightward; U for moving upwards; and D for moving downwards.%n");
-       Scanner s = new Scanner(System.in);
-       M=s.nextLine().charAt(0);
-       Test=Move(M);
-    }
-    System.out.println("After the move, current coordinate is ("+CurrentCoordinate[1]+","+CurrentCoordinate[0]+")");
-    */
-    //Previous Codes are used to test whether subroutine M works properly.
-/**
-    do{
-      Scanner s = new Scanner(System.in);
-      PlayerStatus();
-      PositionReport();
-      System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
-      Boolean ValidMove=true;
-      do{
-      //  char M=s.nextLine().charAt(0);
-        ValidMove=Move(s.nextLine().charAt(0));
-      }while(!ValidMove);
-      PositionReport();
-      PlayerStatus();
-      action();
-      sleep();
-    }while(!win());
-    End();
-    */
-    //Final core=new Final();
-  }
-
+  
 /**
   This subroutine is used to return the number of day in game.
   @return Return the variable int day.
