@@ -332,8 +332,9 @@ public class GameGUI extends JFrame{
 					core.setCipher( (boolean) loadedFile.get(15));
 					core.setBadge ((boolean) loadedFile.get(16));
 					core.setTryEscape ( (boolean) loadedFile.get(17));
+					display2.update();
 
-					System.out.print("Game loaded. It is day " + core.day);
+					//System.out.print("Game loaded. It is day " + core.day);
 
 
 
