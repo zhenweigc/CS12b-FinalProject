@@ -103,6 +103,7 @@ public class GameGUI extends JFrame{
 
 
 
+
 		this.setTitle("This War of Mine 2.0");
 		content = new JPanel();
 		content.setLayout(new BorderLayout());
@@ -493,6 +494,7 @@ public class GameGUI extends JFrame{
 	}
 
 	public static void main(String[] args) {
+
 		GameGUI display=new GameGUI();
 		core=new Final(display);
 		display2=new statswindow(core);
@@ -522,5 +524,6 @@ public class GameGUI extends JFrame{
 		core.End();
 		display.refocus();
 	}
+
 
 }

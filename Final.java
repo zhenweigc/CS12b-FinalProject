@@ -1,8 +1,19 @@
-import java.util.Scanner;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
-import java.util.*;
+
 //This is the final project program
 public class Final {
+
+
 
   public void setDay(int day) {
     this.day = day;
@@ -1255,6 +1266,7 @@ public class Final {
       }
       if ((b.toUpperCase()).equals("YES")) {
         continueTrade = true;
+
       } else {
         continueTrade = false;
       }
@@ -1931,6 +1943,7 @@ public class Final {
    * @return No returns needed
    */
   public void Introduction() {
+      music();
     //Old intro used in CS11a final project,will be abandoned soon.
     System.out.println("Welcome to the game! In this game, you play as a civilian, Dimitri Reznov, who lives inside a city that has been surrounded rebels.");
     this.Delay();
@@ -2196,6 +2209,20 @@ public class Final {
     this.savedFile = newSave;
   }
 
+    public void music() {AudioPlayer MGP = AudioPlayer.player;
+      AudioStream BGM;
+      AudioData MD;
+      ContinuousAudioDataStream loop = null;
+      try{
+        BGM = new AudioStream(new FileInputStream("C:\\Users\\colin\\Desktop\\Codes\\Cosi 12B\\Final\\CS12b-FinalProject"));
+        MD = BGM.getData();
+        loop = new ContinuousAudioDataStream(MD);
+      }catch(IOException error){
+        System.out.print("file not found");
+      }
 
-}
+      MGP.start(loop);
+    }
+    }
+
 
