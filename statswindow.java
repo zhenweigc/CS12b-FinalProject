@@ -65,7 +65,7 @@ public class statswindow extends JFrame{
     dayNum=new JLabel(temp,JLabel.CENTER);
     gridbag.setConstraints(dayNum, new GridBagConstraints(0, 0, 1,1, 1.0, 1.0,GridBagConstraints.CENTER,GridBagConstraints.BOTH, new Insets(10, 20, 10, 20),0, 0));
 
-    temp="Number of units of food you own:"+C.getFood();
+    temp="Food Rations:"+C.getFood();
     foodNum=new JLabel(temp,JLabel.CENTER);
     gridbag.setConstraints(foodNum, new GridBagConstraints(1,0, 1,1, 1.0, 1.0,GridBagConstraints.CENTER,GridBagConstraints.BOTH, new Insets(10, 20,10, 20),0, 0));
 
