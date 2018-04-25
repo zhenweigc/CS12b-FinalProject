@@ -220,21 +220,30 @@ public static Boolean MoveDone=false;
 		up.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				if(core.CurrentCoordinate[0]==0){
-					System.out.println("You cannot go further up.");
-			 	}else{
-					core.CurrentCoordinate[0]-=1;
+				if(movingTime){
+					if(core.CurrentCoordinate[0]==0){
+						System.out.println("You cannot go further up.");
+				 	}else{
+						core.CurrentCoordinate[0]-=1;
+						MoveDone=true;
+						core.SDelay();
+					}
 				}
+
 			}
 		});
 
 		down.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				if(core.CurrentCoordinate[0]==14){
-		      System.out.println("You cannot go further down.");
-				}else{
-					core.CurrentCoordinate[0]+=1;
+				if(movingTime){
+					if(core.CurrentCoordinate[0]==14){
+						System.out.println("You cannot go further down.");
+					}else{
+						core.CurrentCoordinate[0]+=1;
+						MoveDone=true;
+						core.SDelay();
+					}
 				}
 			}
 		});
@@ -242,10 +251,14 @@ public static Boolean MoveDone=false;
 		right.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				if(core.CurrentCoordinate[1]==10){
-		      System.out.println("You cannot go further right.");
-				}else{
-					core.CurrentCoordinate[1]+=1;
+				if(movingTime){
+					if(core.CurrentCoordinate[1]==10){
+			      System.out.println("You cannot go further right.");
+					}else{
+						core.CurrentCoordinate[1]+=1;
+						MoveDone=true;
+						core.SDelay();
+					}
 				}
 			}
 		});
@@ -253,10 +266,14 @@ public static Boolean MoveDone=false;
 		left.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				if(core.CurrentCoordinate[1]==0){
-		      System.out.println("You cannot go further left.");
-				}else{
-					core.CurrentCoordinate[1]-=1;
+				if(movingTime){
+					if(core.CurrentCoordinate[1]==0){
+			      System.out.println("You cannot go further left.");
+					}else{
+						core.CurrentCoordinate[1]-=1;
+						MoveDone=true;
+						core.SDelay();
+					}
 				}
 			}
 		});
@@ -395,82 +412,23 @@ public static Boolean MoveDone=false;
     }
 }
 
-/**
-	This is the ActionListener used for four direction button.
-*/
-/**
-	protected class MoveButton implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e){
-			char M='U';
-			//String chosed=((JComponent)e.getSource()).getName();
-			//M=chosed.charAt(0);
-			MoveDone=false;
-			if(movingTime){
-				if (core.CurrentCoordinate[1]==0 && M=='L'){
-		      System.out.println("You cannot go further left.");
-		    } else if (core.CurrentCoordinate[1]==10 && M=='R'){
-		      System.out.println("You cannot go further right.");
-		    } else if (core.CurrentCoordinate[0]==14 && M=='D'){
-		      System.out.println("You cannot go further down.");
-		    } else if (core.CurrentCoordinate[0]==0 && M=='U'){
-		      System.out.println("You cannot go further up.");
-		    } else {
-
-				}
-		    if (M=='U'){
-		      core.CurrentCoordinate[0]-=1;
-					MoveDone=true;
-					movingTime=false;
-		    }else if(M=='D'){
-		      core.CurrentCoordinate[0]+=1;
-					MoveDone=true;
-					movingTime=false;
-		    }else if(M=='L'){
-		      core.CurrentCoordinate[1]-=1;
-					MoveDone=true;
-					movingTime=false;
-		    }else if(M=='R'){
-		      core.CurrentCoordinate[1]+=1;
-					MoveDone=true;
-					movingTime=false;
-		    }else {
-		      System.out.println("ERROR!");
-		    }
-			}
-			core.SDelay();
-		}
-	}
-*/
-
     public static void main(String[] args) {
       GameGUI display=new GameGUI();
 			core=new Final(display);
 			display2=new statswindow(core);
-			//System.out.println(core.getDay());
-
 	    core.Introduction();
 			display.refocus();
 	    do{
-	      //Scanner s = new Scanner(System.in);
-	      //core.PlayerStatus();
 				display.refocus();
 	      core.PositionReport();
 				display.refocus();
-	      //System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
-/**
-				Boolean ValidMove=true;
-	      do{
-	      //  char M=s.nextLine().charAt(0);
-	        ValidMove=core.Move(s.nextLine().charAt(0));
-	      }while(!ValidMove);
-*/
-				/**movingTime=true;
+				movingTime=true;
 				System.out.println("Click one of the direction button to move.");
-				do{
-				}while(!MoveDone);
-				*/
-				display.mapP.repaint();
+				while(!MoveDone){
+					movingTime=true;
+					display.mapP.repaint();
+				}
+				movingTime=false;
 	      core.PositionReport();
 	      //core.PlayerStatus();
 	      core.action();
@@ -479,6 +437,7 @@ public static Boolean MoveDone=false;
 	      core.sleep();
 				display2.update();
 				display.refocus();
+				MoveDone=false;
 	    }while(!core.win());
 	    core.End();
 			display.refocus();

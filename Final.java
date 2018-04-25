@@ -1832,7 +1832,7 @@ winout: method to show whether Reznov has escaped
   public void SDelay(){
       try{
         Thread thread = Thread.currentThread();
-        thread.sleep(500);//2S
+        thread.sleep(500);//0.5S
       }catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
