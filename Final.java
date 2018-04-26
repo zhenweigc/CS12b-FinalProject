@@ -4,7 +4,9 @@ import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -2210,15 +2212,25 @@ public class Final {
     public void music() {AudioPlayer MGP = AudioPlayer.player;
       AudioStream BGM;
       AudioData MD;
-      ContinuousAudioDataStream loop = null;
-      try{
-        BGM = new AudioStream(new FileInputStream("C:\\Users\\colin\\Desktop\\Codes\\Cosi 12B\\Final\\CS12b-FinalProject"));
-        MD = BGM.getData();
-        loop = new ContinuousAudioDataStream(MD);
-      }catch(IOException error){
-        System.out.print("file not found");
-      }
 
+      ContinuousAudioDataStream loop = null;
+
+      try
+      {
+        InputStream test = new FileInputStream("ff7theme.wav");
+        BGM = new AudioStream(test);
+        AudioPlayer.player.start(BGM);
+        //MD = BGM.getData();
+        //loop = new ContinuousAudioDataStream(MD);
+
+      }
+      catch(FileNotFoundException e){
+        System.out.print(e.toString());
+      }
+      catch(IOException error)
+      {
+        System.out.print(error.toString());
+      }
       MGP.start(loop);
     }
     }

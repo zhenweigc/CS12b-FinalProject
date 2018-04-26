@@ -28,7 +28,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameGUI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameGUI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="101">
@@ -44,8 +44,8 @@
       <file leaf-file-name="statswindow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/statswindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="186" column="14" lean-forward="false" selection-start-line="186" selection-start-column="14" selection-end-line="186" selection-end-column="14" />
+            <state relative-caret-position="76">
+              <caret line="184" column="28" lean-forward="true" selection-start-line="184" selection-start-column="28" selection-end-line="184" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,14 +53,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Final.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Final.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Final.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="879" column="96" lean-forward="false" selection-start-line="879" selection-start-column="92" selection-end-line="879" selection-end-column="96" />
+            <state relative-caret-position="229">
+              <caret line="2219" column="60" lean-forward="false" selection-start-line="2219" selection-start-column="60" selection-end-line="2219" selection-end-column="60" />
               <folding>
-                <element signature="e#9111#9112#0" expanded="true" />
-                <element signature="e#9133#9134#0" expanded="true" />
+                <element signature="e#9177#9178#0" expanded="true" />
+                <element signature="e#9199#9200#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,7 +78,6 @@
       <find>setsaved</find>
       <find>start</find>
       <find>stats</find>
-      <find>music</find>
       <find>yes</find>
       <find>sa</find>
       <find>food</find>
@@ -100,6 +99,7 @@
       <find>getFood</find>
       <find>tutorial</find>
       <find>load</find>
+      <find>music</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -114,9 +114,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Gameframe.java" />
-        <option value="$PROJECT_DIR$/Final.java" />
         <option value="$PROJECT_DIR$/statswindow.java" />
         <option value="$PROJECT_DIR$/GameGUI.java" />
+        <option value="$PROJECT_DIR$/Final.java" />
       </list>
     </option>
   </component>
@@ -550,8 +550,8 @@
         <state relative-caret-position="110">
           <caret line="127" column="49" lean-forward="false" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="49" />
           <folding>
-            <element signature="e#9111#9112#0" expanded="true" />
-            <element signature="e#9133#9134#0" expanded="true" />
+            <element signature="e#9177#9178#0" expanded="true" />
+            <element signature="e#9199#9200#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -605,8 +605,8 @@
         <state relative-caret-position="-740">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
-            <element signature="e#9111#9112#0" expanded="true" />
-            <element signature="e#9133#9134#0" expanded="true" />
+            <element signature="e#9177#9178#0" expanded="true" />
+            <element signature="e#9199#9200#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -723,8 +723,8 @@
         <state relative-caret-position="1164">
           <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
-            <element signature="e#9111#9112#0" expanded="true" />
-            <element signature="e#9133#9134#0" expanded="true" />
+            <element signature="e#9177#9178#0" expanded="true" />
+            <element signature="e#9199#9200#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -772,21 +772,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Final.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="879" column="96" lean-forward="false" selection-start-line="879" selection-start-column="92" selection-end-line="879" selection-end-column="96" />
-          <folding>
-            <element signature="e#9111#9112#0" expanded="true" />
-            <element signature="e#9133#9134#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/statswindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="186" column="14" lean-forward="false" selection-start-line="186" selection-start-column="14" selection-end-line="186" selection-end-column="14" />
+        <state relative-caret-position="76">
+          <caret line="184" column="28" lean-forward="true" selection-start-line="184" selection-start-column="28" selection-end-line="184" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -800,6 +789,17 @@
           <folding>
             <element signature="e#7340#7348#0" expanded="true" />
             <element signature="e#10210#10217#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Final.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="2219" column="60" lean-forward="false" selection-start-line="2219" selection-start-column="60" selection-end-line="2219" selection-end-column="60" />
+          <folding>
+            <element signature="e#9177#9178#0" expanded="true" />
+            <element signature="e#9199#9200#0" expanded="true" />
           </folding>
         </state>
       </provider>
