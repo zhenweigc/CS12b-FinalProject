@@ -12,7 +12,7 @@ public class GameGUI extends JFrame{
 	//in order to connect map interaction with info panel
 	public int mapIndex;
 	public int mouseMap;
-	public JPanel content,headerPanel,info,control,buttonP,logP,diceP;
+	public JPanel content,headerPanel,info,infoimage,control,buttonP,logP,diceP;
 	public Map mapP;
 	public JButton stats,inputB;
 	public JButton up = new JButton("U");
@@ -26,7 +26,7 @@ public class GameGUI extends JFrame{
 	JButton load = new JButton("Load");
 
 
-	public JTextArea logTA;
+	public JTextArea logTA, showInfo;
 	public JTextField inputTF;
 	public JScrollPane scroll;
 	public static Final core;
@@ -35,6 +35,7 @@ public class GameGUI extends JFrame{
 	public Boolean intOnly=false;
 	public static Boolean movingTime=false;
 	public static Boolean MoveDone=false;
+	public int[] SelectedCoordinate = {14,0};
 
 	/**
 	 This is the ActionListener used for the "Enter" Button
@@ -51,6 +52,125 @@ public class GameGUI extends JFrame{
 		}
 	}
 
+
+	/**
+	 This is the ActionListener used for the "save" Button
+	 */
+	protected class saveB implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			HashMap<Integer, ArrayList<Object>> savedFile =  core.getSavedFile();
+
+			//takes in the value from the text field to use as a save key in order to store
+			//thier save file in a unique hash location that the user will remember
+
+			String saveKey = inputTF.getText();
+			inputTF.setText("");
+			//we have to create an array list of many objects to add into our savedFile hashmap
+			ArrayList<Object> newData = new ArrayList<Object>();
+			int[] temp=core.getCoor();
+			Collections.addAll(newData,temp[0],temp[1], core.getDay(), core.getHp(), core.getFood(), core.getPistol(),core.getAutomaticRifle(), core.getAmmo(), core.getMedicine(),core.getBandage(), core.getValuables(), core.getMoral(), core.getSick(), core.getHungry(), core.getFastRecover(), core.getInjured(), core.getSpyID(), core.getCipher(), core.getBadgeValue(),core.getTryEscape() );
+			core.createSaveFile(saveKey,newData);
+			newData.clear();
+			System.out.print("Your save key has been set as : " + saveKey + "\n Enter 0 and press Load if you wish to start a new game. ");
+		}
+	}
+
+
+	/**
+	 This is the ActionListener used for the "load" Button
+	 */
+	protected class loadB implements ActionListener{
+		@Override
+	  public void actionPerformed(ActionEvent e) {
+	    String loadKey = inputTF.getText();
+	    inputTF.setText("");
+	    ArrayList<Object> loadedFile = core.savedFile.get(loadKey);
+	    if(!(core.savedFile).containsKey(loadKey)){
+	      System.out.print("\n Save File Not Found");
+				loadedFile.clear();
+	    }
+	    else{
+
+	      core.CurrentCoordinate[0]=(int)loadedFile.get(0);
+				core.CurrentCoordinate[1]=(int)loadedFile.get(1);
+	      core.setDay((int) loadedFile.get(2));
+	      core.setHp((int) loadedFile.get(3));
+	      core.setFood ((int) loadedFile.get(4));
+	      core.setPistol( (boolean) loadedFile.get(5));
+	      core.setAutomaticRifle( (boolean) loadedFile.get(6));
+	      core.setAmmo ((int) loadedFile.get(7));
+	      core.setMedicine ( (int) loadedFile.get(8));
+	      core.setBandage ((int) loadedFile.get(9));
+	      core.setValuables ((int) loadedFile.get(10));
+	      core.setMoral  ((int) loadedFile.get(11));
+	      core.setSick ((boolean) loadedFile.get(12));
+	      core.setHungry ((int) loadedFile.get(13));
+	      core.setFastRecover ( (boolean) loadedFile.get(14));
+	      core.setInjured ( (boolean) loadedFile.get(15));
+	      core.setSpyID ((boolean) loadedFile.get(16));
+	      core.setCipher( (boolean) loadedFile.get(17));
+	      core.setBadge ((boolean) loadedFile.get(18));
+	      core.setTryEscape ( (boolean) loadedFile.get(19));
+	      core.PositionReport();
+	      display2.update();
+	      mapP.repaint();
+	      System.out.print("Game loaded. It is day " + core.getDay());
+	    }
+	  }
+	}
+
+
+	/**
+	 This subroutine is used for updating postion location
+	 */
+	public String posRepo(int[] selCoor){
+		String temp="";
+		temp=temp+"Selected coordinate is ("+SelectedCoordinate[1]+","+SelectedCoordinate[0]+"), which is a (x,y) coordinate.";
+		String raw=core.Map[selCoor[0]][selCoor[1]];
+		String status;
+		status=core.PositionStatusReport(raw.charAt(1));
+		switch(raw.charAt(0)){
+			case 'A':
+				temp=temp+"\nYou encounter an apartment that "+status+"\n";
+				break;
+			case 'T':
+				temp=temp+"\nYou come across a supermarket that "+status+"\n";
+				break;
+			case 'M':
+				temp=temp+"\nYou are at the front of a Military base.\n'A sign of government power and a guarantee of safety.', the president said. \n'Yeah, definitely,' You tell youself.\nThe building "+status+"\n";
+				break;
+			case 'F':
+				temp=temp+"\nYou stand before a construction field.\n'Politicians promised to finish this building, but they could not fulfill their promises,' You tell youself.\n'This place may never be completed...' The field "+status+"\n";
+				break;
+			case 'W':
+				temp=temp+"\nYou are at the front of a warehouse, a place to store food, medicine, etc.\nIt now stores hope, too.\nThe warehouse "+status+"\n";
+				break;
+			case 'S':
+				temp=temp+"\nYou stand before a school.\n'......' You began to remember your time in school.\nBut then you tell yourself it is not a time for memories.\nThe school in front of you "+status+"\n";
+				break;
+			case 'O':
+				temp=temp+"\nAn office building...You used to be one of those white-collar workers inside.\nThis place seems so familiar, if you ignore the signs of war.\nThere are now no people working inside, it "+status+"\n";
+				break;
+			case 'R':
+				temp=temp+"\nYou approach what looks like a slum, home of bottom class people.---But war changed everything.\nDisplaced persons, refugees whose homes were destroyed all lived here now.\nThe slum "+status+"\n";
+				break;
+			case 'P':
+				temp=temp+"\nYou stumble upon a sewer entrance.\nYou can smell it before see it---War does not change this.\nThis place, full of disease, is now a safe and fast way for you to move to different parts of the city.\n";
+				break;
+			case 'H':
+				temp=temp+"\nYou encounter a hospital, which "+status+"\n";
+				break;
+			case 'D':
+				temp=temp+"\nYou see something beckoning to an earlier time.\nIt's a church steeple.\nPerhaps it can provide holy refuge in this time of war?\nThe church "+status+"\n";
+				break;
+			default:
+				temp=temp+"\nYou are now at the gate of this city.\nIf you can sneak out and trick all those rebels into believing that you are one of their spies, you could escape the city.\nBut they are not fools, so you need to prove yourself.\n";
+				break;
+		}
+		return temp;
+	}
 /**
 
  */
@@ -97,13 +217,6 @@ public class GameGUI extends JFrame{
 	}
 
 	public GameGUI(){
-
-
-
-
-
-
-
 		this.setTitle("This War of Mine 2.0");
 		content = new JPanel();
 		content.setLayout(new BorderLayout());
@@ -117,7 +230,24 @@ public class GameGUI extends JFrame{
 
 		// create the map
 		mapP = new Map();
-		content.add(mapP,BorderLayout.CENTER);
+		//content.add(mapP);
+
+
+		// create the info panel
+		info = new JPanel();
+		 infoimage=new JPanel();
+
+		GridBagLayout G4infoimage= new GridBagLayout();
+		infoimage.setLayout(G4infoimage);
+		G4infoimage.setConstraints(mapP,new GridBagConstraints(0, 0, 1,2, 1.0, 1.0,GridBagConstraints.CENTER,GridBagConstraints.BOTH, new Insets(40, 40, 40, 40),0, 0));
+		infoimage.add(mapP);
+
+		showInfo= new JTextArea("");
+		showInfo.setEditable(false);
+		G4infoimage.setConstraints(showInfo,new GridBagConstraints(GridBagConstraints.RELATIVE, 0, 4,1, 1.0, 1.0, GridBagConstraints.EAST,GridBagConstraints.BOTH, new Insets(40,40,40,40),0,0));
+		infoimage.add(showInfo);
+		content.add(infoimage,BorderLayout.CENTER);
+
 
 
 		// create the info panel
@@ -185,7 +315,7 @@ public class GameGUI extends JFrame{
 		System.setErr(new PrintStream(out));
 
 		scroll = new JScrollPane(logTA);
-		scroll.setPreferredSize(new Dimension(1000,200));
+		scroll.setPreferredSize(new Dimension(1200,170));
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -197,7 +327,7 @@ public class GameGUI extends JFrame{
 
 		GridBagConstraints p2 = new GridBagConstraints();
 		inputTF = new JTextField("");
-		inputTF.setPreferredSize(new Dimension(1000,40));
+		inputTF.setPreferredSize(new Dimension(1000,30));
 		p2.gridx = 0;
 		p2.gridy = 1;
 		p2.gridwidth =1;
@@ -219,17 +349,20 @@ public class GameGUI extends JFrame{
 		logPc.weightx = 1;
 		logPc.fill = GridBagConstraints.HORIZONTAL;
 		control.add(logP, logPc);
-
-
-
-		// start add dice panel
-		GridBagConstraints dicePc = new GridBagConstraints();
-		diceP = new JPanel();
-		dicePc.gridx = 3;
-		dicePc.gridy = 0;
-		control.add(diceP, dicePc);
-
+		control.add(logP, logPc);
+		control.setPreferredSize(new Dimension(0,300));
 		content.add(control, BorderLayout.PAGE_END);
+
+
+
+//		// start add dice panel
+//		GridBagConstraints dicePc = new GridBagConstraints();
+//		diceP = new JPanel();
+//		dicePc.gridx = 3;
+//		dicePc.gridy = 0;
+//		control.add(diceP, dicePc);
+//
+//		//content.add(control, BorderLayout.PAGE_END);
 
 		up.addActionListener(new ActionListener(){
 			@Override
@@ -277,73 +410,9 @@ public class GameGUI extends JFrame{
 			}
 		});
 
-		save.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		save.addActionListener(new saveB());
 
-				HashMap<Integer, ArrayList<Object>> savedFile =  core.getSavedFile();
-
-				//takes in the value from the text field to use as a save key in order to store
-				//thier save file in a unique hash location that the user will remember
-
-				String saveKey = inputTF.getText();
-
-				//we have to create an array list of many objects to add into our savedFile hashmap
-				ArrayList<Object> newData = new ArrayList<Object>();
-
-				Collections.addAll(newData,core.CurrentCoordinate, core.getDay(), core.getHp(), core.getFood(), core.getPistol(),core.getAutomaticRifle(), core.getAmmo(), core.getMedicine(),core.getBandage(), core.getValuables(), core.getMoral(), core.getSick(), core.getHungry(), core.getFastRecover(), core.getInjured(), core.getSpyID(), core.getCipher(), core.getBadgeValue(),core.getTryEscape() );
-				core.createSaveFile(saveKey,newData);
-				System.out.print("Your save key has been set as : " + saveKey + "\n Enter 0 and press Load if you wish to start a new game. ");
-
-
-
-
-
-
-			}
-		});
-
-		load.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String loadKey = inputTF.getText();
-				ArrayList<Object> loadedFile = core.savedFile.get(loadKey);
-				if(loadedFile.size()< 1){
-					System.out.print("\n Save File Not Found");
-				}
-				else{
-
-					core.setCurrentCoordinate ((int[]) loadedFile.get(0));
-					core.setDay  ((int) loadedFile.get(1));
-					core.setHp((int) loadedFile.get(2));
-					core.setFood ((int) loadedFile.get(3));
-					core.setPistol( (boolean) loadedFile.get(4));
-					core.setAutomaticRifle( (boolean) loadedFile.get(5));
-					core.setAmmo ((int) loadedFile.get(6));
-					core.setMedicine ( (int) loadedFile.get(7));
-					core.setBandage ((int) loadedFile.get(8));
-					core.setValuables ((int) loadedFile.get(9));
-					core.setMoral  ((int) loadedFile.get(10));
-					core.setSick ((boolean) loadedFile.get(11));
-					core.setHungry ((int) loadedFile.get(12));
-					core.setFastRecover ( (boolean) loadedFile.get(13));
-					core.setInjured ( (boolean) loadedFile.get(14));
-					core.setSpyID ((boolean) loadedFile.get(14));
-					core.setCipher( (boolean) loadedFile.get(15));
-					core.setBadge ((boolean) loadedFile.get(16));
-					core.setTryEscape ( (boolean) loadedFile.get(17));
-					display2.update();
-
-					//System.out.print("Game loaded. It is day " + core.day);
-
-
-
-
-				}
-
-
-			}
-		});
+		load.addActionListener(new loadB());
 
 
 		left.addActionListener(new ActionListener(){
@@ -363,8 +432,6 @@ public class GameGUI extends JFrame{
 
 		this.setContentPane(content);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//this.setLocation(0,0);
-		//this.setSize(1500,1500);
 		this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 	}
@@ -411,8 +478,21 @@ public class GameGUI extends JFrame{
 
 		}
 
-		public void mousePressed(MouseEvent evt) { }
-		public void mouseEntered(MouseEvent evt) { }
+		public void mousePressed(MouseEvent evt) {
+			int mouseX = evt.getX();
+			int mouseY = evt.getY();
+			for(Block i : blocks){
+				if(i.isinBlock(mouseX,mouseY)){
+					SelectedCoordinate[0]=((i.y-20)/40);
+					SelectedCoordinate[1]=((i.x-20)/40);
+					//HERE
+					String T="";
+					T=posRepo(SelectedCoordinate);
+					showInfo.setText(T);
+					break;
+				}
+			}
+		}		public void mouseEntered(MouseEvent evt) { }
 		public void mouseExited(MouseEvent evt) { }
 		public void mouseClicked(MouseEvent evt) { }
 		public void mouseReleased(MouseEvent evt) { }
@@ -475,8 +555,6 @@ public class GameGUI extends JFrame{
 		public JTextAreaOutputStream (JTextArea destination){
 			if (destination == null)
 				throw new IllegalArgumentException ("Destination is null");
-
-
 			this.destination = destination;
 		}
 		@Override

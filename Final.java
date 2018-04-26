@@ -1,8 +1,9 @@
+/**
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
-
+*/
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -97,7 +98,7 @@ public class Final {
   }
 
   public void setCurrentCoordinate(int[] currentCoordinate) {
-    CurrentCoordinate = currentCoordinate;
+    this.CurrentCoordinate = currentCoordinate;
   }
 
   public int day = 1;
@@ -127,10 +128,6 @@ public class Final {
   //that your profile uses
   public HashMap<String, ArrayList<Object>> savedFile = new HashMap<>();
   public ArrayList<Object> playerInventory = new ArrayList<Object>();
-
-
-
-
 
 
   // saveNum, CurrentCoordinate, day,hp,food,pistol,AutomaticRifle,ammo,medicine,bandage,valuables,Moral,sick,hungry,FastRecover,injured,spyID,Cipher,Badge,TryEscape
@@ -177,51 +174,6 @@ public class Final {
   }
 
   public static void main(String[] args) {
-
-
-
-
-    /**
-     Introduction();
-     /**
-     for(int i=0;i<15;i++){
-     for(int j=0;j<11;j++){
-     System.out.print(Map[i][j]+" ");
-     }
-     System.out.println();
-     }
-     */
-    /**
-     Boolean Test=false;
-     char M;
-     while(Test!=true){
-     System.out.printf("Please input a Char.%nL for moving leftward; R for moving rightward; U for moving upwards; and D for moving downwards.%n");
-     Scanner s = new Scanner(System.in);
-     M=s.nextLine().charAt(0);
-     Test=Move(M);
-     }
-     System.out.println("After the move, current coordinate is ("+CurrentCoordinate[1]+","+CurrentCoordinate[0]+")");
-     */
-    //Previous Codes are used to test whether subroutine M works properly.
-/**
- do{
- Scanner s = new Scanner(System.in);
- PlayerStatus();
- PositionReport();
- System.out.println("Please enter a char to move. U for upwards, D for downwards, L for Leftwards and R for rightwards.");
- Boolean ValidMove=true;
- do{
- //  char M=s.nextLine().charAt(0);
- ValidMove=Move(s.nextLine().charAt(0));
- }while(!ValidMove);
- PositionReport();
- PlayerStatus();
- action();
- sleep();
- }while(!win());
- End();
- */
-    //Final core=new Final();
   }
 
   /**
@@ -231,6 +183,14 @@ public class Final {
    */
   public int getDay() {
     return day;
+  }
+
+  /**
+    This subroutine returns current coordinate.
+    @return an int[] which is current coordinate.
+  */
+  public int[] getCoor(){
+    return CurrentCoordinate;
   }
 
   /**
@@ -1943,7 +1903,7 @@ public class Final {
    * @return No returns needed
    */
   public void Introduction() {
-      music();
+    //music();
     //Old intro used in CS11a final project,will be abandoned soon.
     System.out.println("Welcome to the game! In this game, you play as a civilian, Dimitri Reznov, who lives inside a city that has been surrounded rebels.");
     this.Delay();
@@ -2208,7 +2168,7 @@ public class Final {
   public void setSavedFile(HashMap newSave){
     this.savedFile = newSave;
   }
-
+/**
     public void music() {AudioPlayer MGP = AudioPlayer.player;
       AudioStream BGM;
       AudioData MD;
@@ -2233,6 +2193,5 @@ public class Final {
       }
       MGP.start(loop);
     }
+    */
     }
-
-
